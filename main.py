@@ -17,9 +17,21 @@ playerimage = pygame.image.load("space-invaders.png")
 playerx = 200
 playery = 800
 playerxchange = 0
+#configuracion de enemigo
+enemy_image = pygame.image.load("alienv2.png")
+enemyx = random.randint(0, 736)
+enemyy = random.randint(50, 150)
+enemyxchange = 0.2
+enemyychange = 30
+
+
+
 
 def player (x , y):
     screen.blit(playerimage, (x,y))
+
+def enemy (x , y):
+    screen.blit(enemy_image, (x,y))
 #hacer que la pantalla se quede abierta
 running = True
 """c1 = int(random.randint(1, 255))
@@ -48,6 +60,8 @@ while running:
     #aqui el comando de ramdom (esto lo puse pq si pero no deberia)
     rgb = (128, 128, 128 )
     screen.fill(rgb)
+
+
     #incremento de la variable x
     playerx += playerxchange
 
@@ -58,9 +72,30 @@ while running:
 
     elif playerx >= 736:
         playerx = 736
+
+    if enemyx <= 0:
+        enemyx = 0
     
 
+    elif enemyx >= 736:
+        enemyx = 736
+        
+
+
+    
+
+    enemyx += enemyxchange
+    if enemyx >= 736:
+        enemyxchange = -0.2
+        enemyy += enemyychange
+
+    
+    elif enemyx <= 0:
+        enemyxchange = 0.2
+        enemyy += enemyychange
+
     player(playerx,playery)
+    enemy(enemyx,enemyy)
    
     #actualizar la pantalla
     pygame.display.update()
