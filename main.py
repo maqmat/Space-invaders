@@ -28,7 +28,7 @@ enemyychange = 30
 bullet_image = pygame.image.load("bullet.png")
 bulletx = 0
 bullety = 800
-bulletychange = 2
+bulletychange = 4
 bullet_state = "ready"
 
 
@@ -70,7 +70,9 @@ while running:
                 playerxchange == 0
 
             if event.key == pygame.K_SPACE:
-                fire(playerx,bullety)
+                if bullet_state is "ready":
+                    bulletx = playerx
+                fire(bulletx,bullety)
 
 
         
@@ -117,8 +119,15 @@ while running:
         enemyxchange = 0.2
         enemyy += enemyychange
 
+
+    if bullety <= 0:
+        bullety = 800
+        bullet_state = "ready"
+
+
+
     if bullet_state == "fire":
-        fire(playerx, bullety)
+        fire(bulletx, bullety)
         bullety -= bulletychange 
 
     player(playerx,playery)
