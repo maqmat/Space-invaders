@@ -9,6 +9,7 @@ SCREEN_HEIGTH = 900
 ZIZE = ( SCREEN_WIDTH, SCREEN_HEIGTH )
 #idsplay window
 screen = pygame.display.set_mode(ZIZE)
+backgroundimage = pygame.image.load("ez.jpg")
 #titulo
 pygame.display.set_caption("space invaders adakademy")
 icon = pygame.image.load("alien.png")
@@ -24,6 +25,15 @@ enemyy = random.randint(50, 150)
 enemyxchange = 0.2
 enemyychange = 30
 
+bullet_image = pygame.image.load("bullet.png")
+bulletx = 0
+bullety = 800
+bulletychange = 2
+bullet_state = "ready"
+
+
+
+
 
 
 
@@ -32,6 +42,11 @@ def player (x , y):
 
 def enemy (x , y):
     screen.blit(enemy_image, (x,y))
+
+def fire(x,y):
+    global bullet_state
+    bullet_state = "fire"
+    screen.blit(bullet_image,(x+20, y+10))
 #hacer que la pantalla se quede abierta
 running = True
 """c1 = int(random.randint(1, 255))
@@ -53,6 +68,12 @@ while running:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or pygame.K_RIGHT:
                 playerxchange == 0
+
+            if event.key == pygame.K_SPACE:
+                fire(playerx,bullety)
+
+
+        
         
 
 
@@ -60,6 +81,8 @@ while running:
     #aqui el comando de ramdom (esto lo puse pq si pero no deberia)
     rgb = (128, 128, 128 )
     screen.fill(rgb)
+
+    screen.blit (backgroundimage, (0,0))
 
 
     #incremento de la variable x
@@ -93,6 +116,10 @@ while running:
     elif enemyx <= 0:
         enemyxchange = 0.2
         enemyy += enemyychange
+
+    if bullet_state == "fire":
+        fire(playerx, bullety)
+        bullety -= bulletychange 
 
     player(playerx,playery)
     enemy(enemyx,enemyy)
