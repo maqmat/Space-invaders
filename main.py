@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 #iniciar pygame
 pygame.init()
 #tamaño de pantalla
@@ -47,6 +48,18 @@ def fire(x,y):
     global bullet_state
     bullet_state = "fire"
     screen.blit(bullet_image,(x+20, y+10))
+
+score = 0
+
+def is_colition(enemyx, enemyy, bulletx, bullety):
+    distance = math.sqrt((enemyx-bulletx)**2 + ( enemyy - bullety)**2)
+
+
+    if distance < 27:
+        return True
+    else:
+        return False
+
 #hacer que la pantalla se quede abierta
 running = True
 """c1 = int(random.randint(1, 255))
@@ -73,6 +86,10 @@ while running:
                 if bullet_state is "ready":
                     bulletx = playerx
                 fire(bulletx,bullety)
+
+                
+
+            
 
 
         
@@ -129,6 +146,14 @@ while running:
     if bullet_state == "fire":
         fire(bulletx, bullety)
         bullety -= bulletychange 
+
+    colition =is_colition(enemyx, enemyy, bulletx, bullety)
+    if colition:
+        bullet_state == "ready"
+        score += 1
+        print(score)
+        enemyx =random.randint(0, 536)
+        enemyy =random.randint(50, 100)
 
     player(playerx,playery)
     enemy(enemyx,enemyy)
