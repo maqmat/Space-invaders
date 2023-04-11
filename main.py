@@ -153,6 +153,8 @@ while running:
 
         colition =is_colition(enemyx[item], enemyy[item], bulletx, bullety)
         if colition:
+            xplosionsound =mixer.Sound("corte.mp3")
+            xplosionsound.play()
             bullet_state == "ready"
             score += 1
             print(score)
