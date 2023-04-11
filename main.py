@@ -1,6 +1,7 @@
 import pygame
 import random
 import math
+from pygame import mixer
 #iniciar pygame
 pygame.init()
 #tamaño de pantalla
@@ -11,6 +12,8 @@ ZIZE = ( SCREEN_WIDTH, SCREEN_HEIGTH )
 #idsplay window
 screen = pygame.display.set_mode(ZIZE)
 backgroundimage = pygame.image.load("ez.jpg")
+mixer.music.load("hotel.mp3")
+mixer.music.play(-1)
 #titulo
 pygame.display.set_caption("space invaders adakademy")
 icon = pygame.image.load("alien.png")
@@ -98,6 +101,8 @@ while running:
 
             if event.key == pygame.K_SPACE:
                 if bullet_state is "ready":
+                    bulletsound = mixer.Sound("disparo.mp3")
+                    bulletsound.play()
                     bulletx = playerx
                 fire(bulletx,bullety)
 
