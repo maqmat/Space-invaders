@@ -25,7 +25,7 @@ enemyx =  []
 enemyy =  []
 enemyxchange = []
 enemyychange = []
-number_enemy = 1530
+number_enemy = 8
 
 bullet_image = pygame.image.load("bullet.png")
 bulletx = 0
@@ -35,11 +35,11 @@ bullet_state = "ready"
 
 #configuracion de enemigo
 for item in range( number_enemy ):
-    enemy_image.append(pygame.image.load("alienv2.png")) 
+    enemy_image.append(pygame.image.load("sharko.png")) 
     enemyx.append(random.randint(0, 736)) 
     enemyy.append(random.randint(50, 150)) 
-    enemyxchange.append(0.2) 
-    enemyychange.append(30) 
+    enemyxchange.append(0.7) 
+    enemyychange.append(60) 
 
 
 
@@ -56,6 +56,14 @@ def fire(x,y):
     screen.blit(bullet_image,(x+20, y+10))
 
 score = 0
+scorefont = pygame.font.Font("duke.ttf", 32)
+
+textx = 10
+texty = 10
+
+def showtext(x,y):
+    scoretext = scorefont.render("score: "+ str(score), True, (255,255,255))
+    screen.blit(scoretext, (x,y))
 
 def is_colition(enemyx, enemyy, bulletx, bullety):
     distance = math.sqrt((enemyx-bulletx)**2 + ( enemyy - bullety)**2)
@@ -130,12 +138,12 @@ while running:
     for item in range(number_enemy):
         enemyx[item] += enemyxchange[item]
         if enemyx[item] >= 736:
-            enemyxchange[item] = -0.2
+            enemyxchange[item] = -0.7
             enemyy[item] += enemyychange[item]
 
         
         elif enemyx[item] <= 0:
-            enemyxchange[item] = 0.2
+            enemyxchange[item] = 0.7
             enemyy[item] += enemyychange[item]
 
         colition =is_colition(enemyx[item], enemyy[item], bulletx, bullety)
@@ -164,6 +172,8 @@ while running:
 
 
     player(playerx,playery)
+
+    showtext(textx,texty)
     
    
     #actualizar la pantalla
